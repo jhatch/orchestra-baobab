@@ -17,5 +17,8 @@
   "homepage": "https://github.com/jhatch/orchestra-baobab#readme",
   "devDependencies": {
     "browserify": "^11.0.1"
+  },
+  "dependencies": {
+    "baobab": "^1.1.2"
   }
 }
