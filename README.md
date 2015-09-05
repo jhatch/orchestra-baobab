@@ -20,4 +20,7 @@ The idea is we can simplify our app by maintaining state in a single component. 
 
 ### Components
 
- 
+1. State Manager
+2. a single UI search input
+3. a results grid
+
