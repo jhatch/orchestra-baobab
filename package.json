@@ -1,0 +1,21 @@
+{
+  "name": "orchestra-baobab",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf build && mkdir build && node_modules/.bin/browserify index.js -o build/script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhatch/orchestra-baobab.git"
+  },
+  "author": "John Hatcher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhatch/orchestra-baobab/issues"
+  },
+  "homepage": "https://github.com/jhatch/orchestra-baobab#readme",
+  "devDependencies": {
+    "browserify": "^11.0.1"
+  }
+}

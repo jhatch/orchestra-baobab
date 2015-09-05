@@ -1,5 +1,10 @@
 # Orchestra Baobab
 
+## Usage
+Install: `npm i`
+Build:   `npm run build`
+Test:    open index.html in a browser
+
 ## The Problem
 
 A client side search page often has 3 representations of state to keep in-sync. 
@@ -24,3 +29,5 @@ The idea is we can simplify our app by maintaining state in a single component. 
 2. a single UI search input
 3. a results grid
 
+#### Side Notes
+- use browserify to write as much of this project as possible as if it was all NodeJS scripts; because browsers are scary runtimes while node is safe and warm. 
