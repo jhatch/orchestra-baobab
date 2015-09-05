@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf build && mkdir build && node_modules/.bin/browserify index.js -o build/script.js",
-    "test": "tape test/*.unit.js"
+    "test": "tape test/*.unit.js | node_modules/.bin/tap-spec"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/jhatch/orchestra-baobab#readme",
   "devDependencies": {
+    "benv": "^1.1.0",
     "browserify": "^11.0.1",
+    "tap-spec": "^4.1.0",
     "tape": "^4.2.0"
   },
   "dependencies": {
