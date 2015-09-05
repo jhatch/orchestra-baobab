@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf build && mkdir build && node_modules/.bin/browserify index.js -o build/script.js"
+    "build": "rm -rf build && mkdir build && node_modules/.bin/browserify index.js -o build/script.js",
+    "test": "tape test/*.unit.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,8 @@
   },
   "homepage": "https://github.com/jhatch/orchestra-baobab#readme",
   "devDependencies": {
-    "browserify": "^11.0.1"
+    "browserify": "^11.0.1",
+    "tape": "^4.2.0"
   },
   "dependencies": {
     "baobab": "^1.1.2"
