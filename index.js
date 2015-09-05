@@ -8,3 +8,5 @@ var mySearchInput = new SearchInput('.search-control');
 var myResultsGrid = new ResultsGrid('.search-results');
 
 mySearchInput.render();
+myResultsGrid.render();
+
