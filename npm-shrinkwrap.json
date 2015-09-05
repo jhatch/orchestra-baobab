@@ -1,0 +1,28 @@
+{
+  "name": "orchestra-baobab",
+  "version": "1.0.0",
+  "dependencies": {
+    "baobab": {
+      "version": "1.1.2",
+      "from": "baobab@*",
+      "resolved": "https://registry.npmjs.org/baobab/-/baobab-1.1.2.tgz",
+      "dependencies": {
+        "emmett": {
+          "version": "3.1.1",
+          "from": "emmett@>=3.0.1 <4.0.0",
+          "resolved": "https://registry.npmjs.org/emmett/-/emmett-3.1.1.tgz"
+        }
+      }
+    },
+    "jquery": {
+      "version": "2.1.4",
+      "from": "jquery@*",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-2.1.4.tgz"
+    },
+    "lodash": {
+      "version": "3.10.1",
+      "from": "lodash@*",
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
+    }
+  }
+}
