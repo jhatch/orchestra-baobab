@@ -2,8 +2,8 @@
 
 // the main controller
 var Baobab      = require('baobab');
-var url         = require('url');
 var history     = require('html5-history-api');
+var url         = require('url');
 var $           = require('jquery');
 var SearchInput = require('./lib/SearchInput');
 var ResultsGrid = require('./lib/ResultsGrid');
@@ -35,6 +35,13 @@ var mySearchButton = new Button('.search-button', 'Search!', function () {
   myResultsGrid.render();
 });
 
-mySearchInput.render();
-mySearchButton.render();
+$(function () {
+  var search = url.parse(history.location.search, true).query;
+  query.merge(search);
+  state.commit();
+  mySearchInput.set(query.get('term'));
+  mySearchInput.render();
+  mySearchButton.render();
+  myResultsGrid.render();
+});
 
