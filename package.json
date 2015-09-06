@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "baobab": "^1.1.2",
-    "express": "^4.13.3",
+    "html5-history-api": "^4.2.2",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "uuid": "^2.0.1"
