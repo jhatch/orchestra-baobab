@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf build && mkdir build && node_modules/.bin/browserify index.js -o build/script.js",
-    "test": "tape test/*.unit.js | node_modules/.bin/tap-spec"
+    "test": "tape tests/*.unit.js | node_modules/.bin/tap-spec",
+    "start": "python -m SimpleHTTPServer"
   },
   "repository": {
     "type": "git",

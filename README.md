@@ -3,7 +3,7 @@
 ## Usage
 Install: `npm i`
 Build:   `npm run build`
-Test:    `python -m SimpleHTTPServer`; open `localhost:8000` in a browser
+Test:    `npm start`; open `localhost:8000` in a browser
 
 ## The Problem
 
