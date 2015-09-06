@@ -13,7 +13,7 @@ test('SearchInput', function (t) {
   t.test('render', function (t) {
     setup(function (input, done) {
       input.render();
-      t.isEqual(input.$el.html(), '<input type="text" value="">', 'should render the base template');
+      t.isEqual(input.$el.find('input').size(), 1, 'should render the base template');
       done(t);
     });
   });
