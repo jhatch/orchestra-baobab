@@ -2,9 +2,8 @@
 
 // the main controller
 var Baobab      = require('baobab');
-var history     = require('html5-history-api');
-var url         = require('url');
 var $           = require('jquery');
+var url         = require('./lib/url');
 var SearchInput = require('./lib/SearchInput');
 var ResultsGrid = require('./lib/ResultsGrid');
 var Button      = require('./lib/Button');
@@ -20,17 +19,7 @@ var query = state.select('searchQuery');
 
 // keep the URL up-to-date
 query.on('update', function () {
-  history.pushState(null, null, '?' + $.param(query.get()));
-});
-
-$(function () {
-  var search = url.parse(history.location.search, true).query;
-  query.merge(search);
-  state.commit();
-  mySearchInput.set(query.get('term'));
-  mySearchInput.render();
-  mySearchButton.render();
-  myResultsGrid.render();
+  url.updateQueryParams(query.get());
 });
 
 var mySearchInput  = new SearchInput('.search-control');
@@ -45,3 +34,21 @@ var mySearchButton = new Button('.search-button', 'Search!', function () {
   myResultsGrid.render();
 });
 
+// MAIN
+$(function () {
+
+  // init state
+  query.merge(url.getQueryParams());
+  state.commit();
+
+  // render view
+  // 1.
+  mySearchInput.set(query.get('term'));
+  mySearchInput.render();
+
+  // 2.
+  mySearchButton.render();
+ 
+  // 3.
+  myResultsGrid.render();
+});
