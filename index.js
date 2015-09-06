@@ -9,6 +9,10 @@ var ResultsGrid = require('./lib/ResultsGrid');
 var Button      = require('./lib/Button');
 var bing        = require('./lib/bing');
 
+// -------------------------------------------------- //
+// -------------------------------------------------- //
+
+// centralized state
 var state = new Baobab({
   searchQuery: {
     term: ''
@@ -22,19 +26,29 @@ query.on('update', function () {
   url.updateQueryParams(query.get());
 });
 
+// -------------------------------------------------- //
+// -------------------------------------------------- //
+
+// init/configure search ui components
+// 1.
 var mySearchInput  = new SearchInput('.search-control');
 
+// 2.
 var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(done) {
   bing.search(query.select('term').get(), done);
 });
 
+// 3.
 var mySearchButton = new Button('.search-button', 'Search!', function () {
   query.set('term', mySearchInput.get());
   state.commit();
   myResultsGrid.render();
 });
 
-// MAIN
+// -------------------------------------------------- //
+// -------------------------------------------------- //
+
+// main
 $(function () {
 
   // init state
@@ -47,8 +61,8 @@ $(function () {
   mySearchInput.render();
 
   // 2.
-  mySearchButton.render();
+  myResultsGrid.render();
  
   // 3.
-  myResultsGrid.render();
+  mySearchButton.render();
 });
