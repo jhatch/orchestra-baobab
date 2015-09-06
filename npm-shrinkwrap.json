@@ -14,6 +14,11 @@
         }
       }
     },
+    "html5-history-api": {
+      "version": "4.2.2",
+      "from": "html5-history-api@*",
+      "resolved": "https://registry.npmjs.org/html5-history-api/-/html5-history-api-4.2.2.tgz"
+    },
     "jquery": {
       "version": "2.1.4",
       "from": "jquery@*",
@@ -23,6 +28,11 @@
       "version": "3.10.1",
       "from": "lodash@*",
       "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
+    },
+    "uuid": {
+      "version": "2.0.1",
+      "from": "uuid@*",
+      "resolved": "https://registry.npmjs.org/uuid/-/uuid-2.0.1.tgz"
     }
   }
 }
