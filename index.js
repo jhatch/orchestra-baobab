@@ -23,6 +23,16 @@ query.on('update', function () {
   history.pushState(null, null, '?' + $.param(query.get()));
 });
 
+$(function () {
+  var search = url.parse(history.location.search, true).query;
+  query.merge(search);
+  state.commit();
+  mySearchInput.set(query.get('term'));
+  mySearchInput.render();
+  mySearchButton.render();
+  myResultsGrid.render();
+});
+
 var mySearchInput  = new SearchInput('.search-control');
 
 var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(done) {
@@ -32,16 +42,6 @@ var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(do
 var mySearchButton = new Button('.search-button', 'Search!', function () {
   query.set('term', mySearchInput.get());
   state.commit();
-  myResultsGrid.render();
-});
-
-$(function () {
-  var search = url.parse(history.location.search, true).query;
-  query.merge(search);
-  state.commit();
-  mySearchInput.set(query.get('term'));
-  mySearchInput.render();
-  mySearchButton.render();
   myResultsGrid.render();
 });
 

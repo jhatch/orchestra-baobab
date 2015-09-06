@@ -32,3 +32,9 @@ The idea is we can simplify our app by maintaining state in a single component. 
 #### Side Notes
 - use browserify to write as much of this project as possible as if it was all NodeJS scripts; because browsers are scary runtimes while node is safe and warm. 
 - [Orchestra Baobab](https://www.youtube.com/watch?v=47_j5hoeIws)
+
+#### ToDo
+- make enter fire search
+- add a second control
+- basic pagination
+- sorting
