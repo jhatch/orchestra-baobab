@@ -34,7 +34,7 @@ state.cursors.searchQuery.on('update', function () {
 
 // create basic state helpers
 // search term updates
-function updateQueryState() {
+function updateSearchTermState() {
   state.cursors.searchQuery.set('Query', mySearchInput.get());
   state.commit();
 }
@@ -65,12 +65,12 @@ function fetchSearchResults(done) {
 var mySearchInput = new SearchInput('.search-control');
 $(global.document).on('keypress', function (evt) {
   if (evt.which === 13) { // ENTER
-    updateQueryState();
+    updateSearchTermState();
   }
 });
 
 // main search button
-var mySearchButton = new Button('.search-button', 'Search!').click(updateQueryState);
+var mySearchButton = new Button('.search-button', 'Search!').click(updateSearchTermState);
 
 // use my current location
 var myCurrentLoc = new CurrentLoc('.use-my-current-location').click(updateLocationState);
