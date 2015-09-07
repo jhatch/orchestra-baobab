@@ -25,9 +25,11 @@ The idea is we can simplify our app by maintaining state in a single component. 
 
 ### Components
 
-1. State Manager
-2. a single UI search input
-3. a results grid
+1. controller   - manages core state and initializes each ui component
+2. Search Input - handles accepting user text input
+3. Results Grid - displays data retrieved via consumer given fetcher
+4. Button       - does consumer given stuff on click
+5. bing util    - handles make the actual search query to Azure web api
 
 #### Side Notes
 - use browserify to write as much of this project as possible as if it was all NodeJS scripts; because browsers are scary runtimes while node is safe and warm. 
