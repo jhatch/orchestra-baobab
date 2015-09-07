@@ -15,7 +15,7 @@ var bing        = require('./lib/bing');
 // centralized state
 var state = new Baobab({
   searchQuery: {
-    term: ''
+    Query: ''
   }
 });
 
@@ -37,12 +37,12 @@ var mySearchInput  = new SearchInput('.search-control');
 
 // 2. Outputs
 var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(done) {
-  bing.search(query.select('term').get(), done);
+  bing.search(query.get(), done);
 });
 
 // 3. Triggers
 function runSearch() {
-  query.set('term', mySearchInput.get());
+  query.set('Query', mySearchInput.get());
   state.commit();
   myResultsGrid.render();
 }
@@ -67,7 +67,7 @@ $(function () {
 
   // render view
   // 1. 
-  mySearchInput.set(query.get('term'));
+  mySearchInput.set(query.get('Query'));
   mySearchInput.render();
 
   // 2.
