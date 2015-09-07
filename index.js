@@ -34,6 +34,7 @@ searchParams.on('update', function () {
 // ui components
 
 // 1. Inputs
+// - Keyword Search
 var mySearchInput  = new SearchInput('.search-control');
 
 $(global.document).on('keypress', function (evt) {
@@ -43,16 +44,18 @@ $(global.document).on('keypress', function (evt) {
   }
 });
 
+// - search button
+var mySearchButton = new Button('.search-button', 'Search!', function onclick() {
+  searchParams.set('Query', mySearchInput.get());
+  state.commit();
+});
+
+// - Use my current location
 var myCurrentLoc   = new CurrentLoc('.use-my-current-location', function onclick(lat, lng) {
   searchParams.merge({
     Latitude: lat,
     Longitude: lng
   });
-  state.commit();
-});
-
-var mySearchButton = new Button('.search-button', 'Search!', function onclick() {
-  searchParams.set('Query', mySearchInput.get());
   state.commit();
 });
 
