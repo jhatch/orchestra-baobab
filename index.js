@@ -7,6 +7,7 @@ var url         = require('./lib/url');
 var SearchInput = require('./lib/SearchInput');
 var ResultsGrid = require('./lib/ResultsGrid');
 var Button      = require('./lib/Button');
+var CurrentLoc  = require('./lib/CurrentLocation');
 var bing        = require('./lib/bing');
 
 // -------------------------------------------------- //
@@ -20,11 +21,11 @@ var state = new Baobab({
 });
 
 // store a cursor to our the search query
-var query = state.select('searchQuery');
+var searchParams = state.select('searchQuery');
 
 // keep the URL up-to-date
-query.on('update', function () {
-  url.updateQueryParams(query.get());
+searchParams.on('update', function () {
+  url.updateQueryParams(searchParams.get());
 });
 
 // -------------------------------------------------- //
@@ -35,24 +36,33 @@ query.on('update', function () {
 // 1. Inputs
 var mySearchInput  = new SearchInput('.search-control');
 
-// 2. Outputs
-var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(done) {
-  bing.search(query.get(), done);
-});
-
-// 3. Triggers
-function runSearch() {
-  query.set('Query', mySearchInput.get());
-  state.commit();
-  myResultsGrid.render();
-}
-
-var mySearchButton = new Button('.search-button', 'Search!', runSearch);
-
 $(global.document).on('keypress', function (evt) {
   if (evt.which === 13) {
-    runSearch();
+    searchParams.set('Query', mySearchInput.get());
+    state.commit();
   }
+});
+
+var myCurrentLoc   = new CurrentLoc('.use-my-current-location', function onclick(lat, lng) {
+  searchParams.merge({
+    Latitude: lat,
+    Longitude: lng
+  });
+  state.commit();
+});
+
+var mySearchButton = new Button('.search-button', 'Search!', function onclick() {
+  searchParams.set('Query', mySearchInput.get());
+  state.commit();
+});
+
+// 2. Outputs
+var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(done) {
+  bing.search(searchParams.get(), done);
+});
+
+searchParams.on('update', function () {
+  myResultsGrid.render();
 });
 
 // -------------------------------------------------- //
@@ -62,17 +72,16 @@ $(global.document).on('keypress', function (evt) {
 $(function () {
 
   // init state
-  query.merge(url.getQueryParams());
+  searchParams.merge(url.getQueryParams());
   state.commit();
 
   // render view
   // 1. 
-  mySearchInput.set(query.get('Query'));
+  mySearchInput.set(searchParams.get('Query'));
   mySearchInput.render();
+  myCurrentLoc.render();
+  mySearchButton.render();
 
   // 2.
-  myResultsGrid.render();
- 
-  // 3.
-  mySearchButton.render();
+  myResultsGrid.render();  
 });

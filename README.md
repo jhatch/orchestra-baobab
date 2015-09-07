@@ -36,9 +36,8 @@ The idea is we can simplify our app by maintaining state in a single component. 
 - [Orchestra Baobab](https://www.youtube.com/watch?v=47_j5hoeIws)
 
 #### ToDo
-- add a second control
 - basic pagination
 - sorting
 - add gulp build (minification, linting)
 - no results screen
-
+- basic styling
