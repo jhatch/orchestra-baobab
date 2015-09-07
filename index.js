@@ -1,8 +1,8 @@
 'use strict'
 
 // the main controller
-var Baobab      = require('baobab');
 var $           = require('jquery');
+var Ohio        = require('./lib/Ohio');
 var url         = require('./lib/url');
 var SearchInput = require('./lib/SearchInput');
 var ResultsGrid = require('./lib/ResultsGrid');
@@ -14,18 +14,24 @@ var bing        = require('./lib/bing');
 // -------------------------------------------------- //
 
 // centralized state
-var state = new Baobab({
+var state = new Ohio({
+
   searchQuery: {
-    Query: ''
+
+    // Query: 'search something',
+
+    // Latitude: 74.123143,
+
+    // Longitude: 45.3413
   }
 });
 
-// store a cursor to our the search query
-var searchParams = state.select('searchQuery');
+// store useful cursors
+state.curse('searchQuery');
 
 // keep the URL up-to-date
-searchParams.on('update', function () {
-  url.updateQueryParams(searchParams.get());
+state.cursors.searchQuery.on('update', function () {
+  url.updateQueryParams(state.cursors.searchQuery.get());
 });
 
 // -------------------------------------------------- //
@@ -39,20 +45,20 @@ var mySearchInput  = new SearchInput('.search-control');
 
 $(global.document).on('keypress', function (evt) {
   if (evt.which === 13) {
-    searchParams.set('Query', mySearchInput.get());
+    state.cursors.searchQuery.set('Query', mySearchInput.get());
     state.commit();
   }
 });
 
 // - search button
 var mySearchButton = new Button('.search-button', 'Search!', function onclick() {
-  searchParams.set('Query', mySearchInput.get());
+  state.cursors.searchQuery.set('Query', mySearchInput.get());
   state.commit();
 });
 
 // - Use my current location
 var myCurrentLoc   = new CurrentLoc('.use-my-current-location', function onclick(lat, lng) {
-  searchParams.merge({
+  state.cursors.searchQuery.merge({
     Latitude: lat,
     Longitude: lng
   });
@@ -61,10 +67,10 @@ var myCurrentLoc   = new CurrentLoc('.use-my-current-location', function onclick
 
 // 2. Outputs
 var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(done) {
-  bing.search(searchParams.get(), done);
+  bing.search(state.cursors.searchQuery.get(), done);
 });
 
-searchParams.on('update', function () {
+state.cursors.searchQuery.on('update', function () {
   myResultsGrid.render();
 });
 
@@ -75,12 +81,12 @@ searchParams.on('update', function () {
 $(function () {
 
   // init state
-  searchParams.merge(url.getQueryParams());
+  state.cursors.searchQuery.merge(url.getQueryParams());
   state.commit();
 
   // render view
   // 1. 
-  mySearchInput.set(searchParams.get('Query'));
+  mySearchInput.set(state.cursors.searchQuery.get('Query'));
   mySearchInput.render();
   myCurrentLoc.render();
   mySearchButton.render();
