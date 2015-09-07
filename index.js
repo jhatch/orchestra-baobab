@@ -19,6 +19,7 @@ var state = new Baobab({
   }
 });
 
+// store a cursor to our the search query
 var query = state.select('searchQuery');
 
 // keep the URL up-to-date
@@ -29,7 +30,7 @@ query.on('update', function () {
 // -------------------------------------------------- //
 // -------------------------------------------------- //
 
-// init/configure search ui components
+// init/configure each search ui component
 // 1.
 var mySearchInput  = new SearchInput('.search-control');
 
