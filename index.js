@@ -30,20 +30,29 @@ query.on('update', function () {
 // -------------------------------------------------- //
 // -------------------------------------------------- //
 
-// init/configure each search ui component
-// 1.
+// ui components
+
+// 1. Inputs
 var mySearchInput  = new SearchInput('.search-control');
 
-// 2.
+// 2. Outputs
 var myResultsGrid  = new ResultsGrid('.search-results', function fetchResults(done) {
   bing.search(query.select('term').get(), done);
 });
 
-// 3.
-var mySearchButton = new Button('.search-button', 'Search!', function () {
+// 3. Triggers
+function runSearch() {
   query.set('term', mySearchInput.get());
   state.commit();
   myResultsGrid.render();
+}
+
+var mySearchButton = new Button('.search-button', 'Search!', runSearch);
+
+$(global.document).on('keypress', function (evt) {
+  if (evt.which === 13) {
+    runSearch();
+  }
 });
 
 // -------------------------------------------------- //
@@ -57,7 +66,7 @@ $(function () {
   state.commit();
 
   // render view
-  // 1.
+  // 1. 
   mySearchInput.set(query.get('term'));
   mySearchInput.render();
 
