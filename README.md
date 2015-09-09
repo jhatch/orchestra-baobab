@@ -23,13 +23,15 @@ Inspired by [this](http://www.christianalfoni.com/articles/2015_02_06_Plant-a-Ba
 
 The idea is we can simplify our app by maintaining state in a single component. This component is then responsible for syncing all representations of this state in turn. All UI components can simply push data to our main tree or listen to changes in the tree to respond. The goal is to centralize state concerns while decoupling UI controls from the underlying search mechanism and from the various representations of this core state.
 
-### Components
-
-1. controller   - manages core state and initializes each ui component
-2. Search Input - handles accepting user text input
-3. Results Grid - displays data retrieved via consumer given fetcher
-4. Button       - does consumer given stuff on click
-5. bing util    - handles make the actual search query to Azure web api
+### Design Decisions
+- have a concept of the canonical state, results and url are driven off of this
+- each component is indepdent and ignores central state, controller determines when to glue
+  component state with central state, components have no direct knowledge of eachother
+- use delegated events, since each component has a static shell element, bind all events to this
+and not to the contained elements which get re-rendered, this way we avoid leaking DOM handlers
+- parameterize all `window` depedencies, for testing purposes don't directly reference global things
+in your components, pass them in from the controller
+- all components should have a uniform interface with at least `render` and also `get`, `set` when applicable
 
 #### Side Notes
 - use browserify to write as much of this project as possible as if it was all NodeJS scripts; because browsers are scary runtimes while node is safe and warm. 
