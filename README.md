@@ -41,3 +41,5 @@ The idea is we can simplify our app by maintaining state in a single component. 
 - add gulp build (minification, linting)
 - no results screen
 - basic styling
+- make template loader instead of in-lined component templates
+- consider adding ES6 support

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf build && mkdir build && node_modules/.bin/browserify index.js -o build/script.js",
+    "build": "rm -rf build && mkdir build && node_modules/.bin/browserify index.js -d -o build/script.js",
     "test": "tape tests/*.unit.js | node_modules/.bin/tap-spec",
     "start": "python -m SimpleHTTPServer"
   },
