@@ -31,7 +31,7 @@ state.curse('searchQuery');
 // keep the URL up-to-date
 state.cursors.searchQuery.on('update', function () {
   url.updateQueryParams(state.cursors.searchQuery.get());
-  ui.resultsGrid.render();
+  ui.components.resultsGrid.render();
 });
 
 // -------------------------------------------------- //
@@ -39,13 +39,13 @@ state.cursors.searchQuery.on('update', function () {
 // create basic state helpers
 // search term updates
 state.define('updateSearchTermState', function () {
-  this.cursors.searchQuery.set('Query', ui.searchTerm.get());
+  this.cursors.searchQuery.set('Query', ui.components.searchTerm.get());
   this.commit();
 });
 
 // current location
 state.define('updateLocationState', function () {
-  var loc = ui.useMyLocation.get();
+  var loc = ui.components.useMyLocation.get();
   this.cursors.searchQuery.merge({
     Latitude:  loc.lat,
     Longitude: loc.lng
@@ -93,7 +93,7 @@ ui.components.safeSearchToggle.click(state.modifiers.updateSafeSearchState);
 // search results grid
 ui.add('resultsGrid', new ResultsGrid('.search-results', function (done) {
   bing.search(state.cursors.searchQuery.get(), done);
-});
+}));
 
 // -------------------------------------------------- //
 // -------------------------------------------------- //
