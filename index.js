@@ -2,6 +2,7 @@
 
 // the main controller
 var $           = require('jquery');
+var ui          = require('./lib/ui-component-mgr');
 var Ohio        = require('./lib/Ohio');
 var url         = require('./lib/url');
 var SearchInput = require('./lib/SearchInput');
@@ -62,13 +63,12 @@ state.define('updateSafeSearchState', function (value) {
 // -------------------------------------------------- //
 
 // ui components
-var ui = {};
 
 // -------------------------------------------------- //
 
 // 1. Inputs
 // keyword search
-ui.searchTerm = new SearchInput('.search-control');
+ui.add('searchTerm', new SearchInput('.search-control'));
 $(global.document).on('keypress', function (evt) {
   if (evt.which === 13) { // ENTER
     state.modifiers.updateSearchTermState();
@@ -76,22 +76,22 @@ $(global.document).on('keypress', function (evt) {
 });
 
 // main search button
-ui.searchButton = new Button('.search-button', 'Search!');
-ui.searchButton .click(state.modifiers.updateSearchTermState);
+ui.add('searchButton', new Button('.search-button', 'Search!'));
+ui.components.searchButton.click(state.modifiers.updateSearchTermState);
 
 // use my current location
-ui.useMyLocation = new CurrentLoc('.near-me', global.navigator.geolocation);
-ui.useMyLocation.click(state.modifiers.updateLocationState);
+ui.add('useMyLocation', new CurrentLoc('.near-me', global.navigator.geolocation));
+ui.components.useMyLocation.click(state.modifiers.updateLocationState);
 
 // toggle safe search
-ui.safeSearchToggle = new Toggle('.toggle-safe-search', 'SafeSearch', 'Moderate', 'Off');
-ui.safeSearchToggle.click(state.modifiers.updateSafeSearchState);
+ui.add('safeSearchToggle', new Toggle('.toggle-safe-search', 'SafeSearch', 'Moderate', 'Off'));
+ui.components.safeSearchToggle.click(state.modifiers.updateSafeSearchState);
 
 // -------------------------------------------------- //
 
 // 2. Outputs
 // search results grid
-ui.resultsGrid = new ResultsGrid('.search-results', function (done) {
+ui.add('resultsGrid', new ResultsGrid('.search-results', function (done) {
   bing.search(state.cursors.searchQuery.get(), done);
 });
 
@@ -106,12 +106,10 @@ $(function () {
   state.commit();
 
   // render view
-  ui.searchTerm.set(state.cursors.searchQuery.get('Query'));
-  ui.searchTerm.render();
+  ui.components.searchTerm.set(state.cursors.searchQuery.get('Query'));
+  ui.components.safeSearchToggle.set(state.cursors.searchQuery.get('Adult'));
 
-  ui.safeSearchToggle.set(state.cursors.searchQuery.get('Adult'));
-  ui.safeSearchToggle.render();
-
-  ui.useMyLocation.render();
-  ui.searchButton.render();
+  ui.each(function (component) {
+    component.render();
+  });
 });
