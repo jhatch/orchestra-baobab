@@ -28,7 +28,7 @@ var state = new Ohio({
 // store useful cursors
 state.curse('searchQuery');
 
-// keep the URL up-to-date
+// when internal state changes, update the url and the grid
 state.cursors.searchQuery.on('update', function () {
   url.updateQueryParams(state.cursors.searchQuery.get());
   ui.components.resultsGrid.render();
